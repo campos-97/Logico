@@ -52,5 +52,20 @@ public class DataManager {
         return instace;
     }
 
+    public void resetCalculationTable(){
+        calcTableMatrix = new Vector<>();
+        this.calcTableMatrix.add(new Vector<String>());
+        this.calcTableMatrix.get(0).add("");
+        int j = 1;
+        int p = 1;
+        for(int i=1 ; i < 18 ; i++){
+            if(i > 0 && ((i & (i - 1)) == 0)){
+                this.calcTableMatrix.get(0).add("P"+p++);
+            } else{
+                this.calcTableMatrix.get(0).add("D"+j++);
+            }
+        }
+    }
+
 
 }

@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
                         hammingData += "" + c;
                         i++;
                     }
+                    DataManager.getInstace().resetCalculationTable();
                     DataManager.getInstace().calcTableMatrix.add(data);
 
                     Log.d("anus", "hamingData: " + hammingData);
