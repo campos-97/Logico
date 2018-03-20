@@ -77,15 +77,17 @@ Java_discretos_tec_hammingalgorithm_MainActivity_encode(JNIEnv *env,
                 result += data.substr(0,i);
                 result += parity;
                 result += data.substr(i+1);
-                encodedData = encodedData.substr(0,i) + (""+parity) + encodedData.substr(i);
+                std::string p = "";
+                p+= parity;
+                encodedData = encodedData.substr(0,i) + p + encodedData.substr(i+1);
             }else{
                 if(parity == '1'){
                     result += data.substr(0,i) + std::string("0") +data.substr(i+1);
-                    encodedData  = encodedData.substr(0,i) + std::string("0") +encodedData.substr(i);
+                    encodedData  = encodedData.substr(0,i) + std::string("0") +encodedData.substr(i+1);
                 }
                 if(parity == '0'){
                     result += data.substr(0,i) + std::string("1") +data.substr(i+1);
-                    encodedData = encodedData.substr(0,i) + std::string("1") +encodedData.substr(i);
+                    encodedData = encodedData.substr(0,i) + std::string("1") +encodedData.substr(i+1);
                 }
             }
 
