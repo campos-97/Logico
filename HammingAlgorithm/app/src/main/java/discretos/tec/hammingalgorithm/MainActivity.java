@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Vector;
 
@@ -113,21 +114,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String hexToBin(String input){
-        char[] hex =  {'A','B','C','D','E','F'};
-        String result = "";
-        for(char c : input.toCharArray()){
-            for(int i=0 ; i<hex.length ; i++){
-                if(c == hex[i]){
-                    result += Integer.toBinaryString(i+10);
-                    Log.d("BinData", "hexToBin: " + hex[i]+ " - "+result);
-                }
-            }
-            if(c < 10){
-                result += Integer.toBinaryString(c);
-                Log.d("BinData", "int: "+ c + " - "+result);
-            }
+        String s = new BigInteger(input, 16).toString(2);
+        while(s.length() < 13){
+
+            s = "0" + s;
         }
-        return result;
+        return s;
     }
 
     /**
