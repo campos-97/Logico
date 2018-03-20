@@ -1,0 +1,86 @@
+package discretos.tec.hammingalgorithm;
+
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.List;
+import java.util.Vector;
+
+import discretos.tec.hammingalgorithm.data.DataManager;
+
+public class HammingActivity extends AppCompatActivity {
+
+    private AppCompatActivity activity;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_hamming);
+        activity = this;
+
+        final Button button1 = (Button) findViewById(R.id.calcutationTableBtn);
+        final Button button2 = (Button) findViewById(R.id.comparisonTableBtn);
+
+        View.OnClickListener  onClickListener = new View.OnClickListener() {
+            public void onClick(View v) {
+                final Dialog dialog = new Dialog(activity);
+
+                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                    @Override
+                    public void onShow(DialogInterface dialogInterface) {
+                        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                    }
+                });
+
+                dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialogInterface) {
+                        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                    }
+                });
+
+                dialog.setContentView(R.layout.fragment_parity_bits_calculation);
+                dialog.setCancelable(true);
+
+                TableLayout table1 = (TableLayout) dialog.findViewById(R.id.Table1);
+
+                DataManager dataManager = DataManager.getInstace();
+
+                List<List<String>> matrix = new Vector<>();
+                if(v.getId() == R.id.comparisonTableBtn){
+                    matrix = dataManager.compTableMatrix;
+                }else if(v.getId() == R.id.calcutationTableBtn){
+                    matrix = dataManager.calcTableMatrix;
+                }
+
+                for(List<String> vec : matrix){
+                    TableRow tr = new TableRow(v.getContext());
+                    tr.setBackgroundResource(R.drawable.border);
+                    for(String s : vec){
+                        TextView tv = new TextView(v.getContext());
+                        tv.setBackgroundResource(R.drawable.border);
+                        tv.setText(s);
+                        tr.addView(tv);
+                    }
+                    table1.addView(tr);
+                }
+
+                dialog.show();
+            }
+        };
+
+        button1.setOnClickListener(onClickListener);
+        button2.setOnClickListener(onClickListener);
+
+    }
+}

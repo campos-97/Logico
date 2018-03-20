@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="discretos.tec.hammingalgorithm.HammingActivity">
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/EncodedLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/EncodedData"
+            android:textSize="32sp"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/EncodedData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textSize="28sp"
+            android:background="@color/encodeColor1"
+            android:textStyle="bold"/>
+
+        <Button
+            android:id="@+id/calcutationTableBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/encodeColor"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:textSize="20sp"
+            android:text="@string/btnBitComp"/>
+
+        <Button
+            android:id="@+id/comparisonTableBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/encodeColor"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:textSize="20sp"
+            android:text="@string/btnBitComp"/>
+
+        <Button
+            android:id="@+id/testInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/encodeColor"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:textSize="20sp"
+            android:text="@string/btnNewIn"/>
+
+        <Button
+            android:id="@+id/resetButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btnReset"
+            android:background="@color/colorAccent"
+            android:layout_marginTop="60dp"
+            android:textSize="20sp"
+            />
+
+    </android.support.v7.widget.LinearLayoutCompat>
+
+</android.support.constraint.ConstraintLayout>

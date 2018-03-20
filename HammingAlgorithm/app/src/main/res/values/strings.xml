@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">HammingAlgorithm</string>
+    <string name="HexInput">Hex Input:</string>
+    <string name="EncodedData">Encoded Data:</string>
+    <string name="Parity">Parity Option: </string>
+    <string name="simple_ime">HEX</string>
+    <string name="subtype_en_US">Hexadecimal Keyboard</string>
+    <string name="encode">Encode</string>
+    <string name="btnBitCalc">Parity Bits Calculation</string>
+    <string name="btnBitComp">Parity Bits Comparison</string>
+    <string name="btnNewIn">Test New Input</string>
+    <string name="btnReset">Reset System</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+</resources>
