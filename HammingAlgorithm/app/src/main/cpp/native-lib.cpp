@@ -119,3 +119,14 @@ Java_discretos_tec_hammingalgorithm_MainActivity_encode(JNIEnv *env,
 
     return(ret);
 }
+
+extern "C"
+JNIEXPORT jobjectArray
+JNICALL
+Java_discretos_tec_hammingalgorithm_MainActivity_check(JNIEnv *env,
+                                                        jobject jobj,
+                                                        jstring inputData,
+                                                        jchar parity){
+
+
+}
