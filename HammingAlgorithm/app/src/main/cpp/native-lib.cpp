@@ -140,6 +140,7 @@ JNICALL
 Java_discretos_tec_hammingalgorithm_MainActivity_compare(JNIEnv *env,
                                                         jobject jobj,
                                                         jstring inputData,
+                                                         jstring inputDataRaw,
                                                         jchar parity){
 
     jobjectArray ret;
