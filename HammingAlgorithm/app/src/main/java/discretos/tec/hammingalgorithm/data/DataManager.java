@@ -3,6 +3,7 @@ package discretos.tec.hammingalgorithm.data;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Vector;
 
@@ -36,11 +37,13 @@ public class DataManager {
 
         this.compTableMatrix.add(new Vector<String>());
         this.compTableMatrix.get(0).add("");
-        for(int i=1 ; i <= 18 ; i++){
+        j = 1;
+        p = 1;
+        for(int i=1 ; i < 18 ; i++){
             if(i > 0 && ((i & (i - 1)) == 0)){
-                this.compTableMatrix.get(0).add("P"+i);
+                this.compTableMatrix.get(0).add("P"+p++);
             } else{
-                this.compTableMatrix.get(0).add("D"+i);
+                this.compTableMatrix.get(0).add("D"+j++);
             }
         }
         this.compTableMatrix.get(0).add("ParityTest");
@@ -67,5 +70,14 @@ public class DataManager {
         }
     }
 
+
+    public String hexToBin(String input){
+        String s = new BigInteger(input, 16).toString(2);
+        while(s.length() < 12){
+
+            s = "0" + s;
+        }
+        return s;
+    }
 
 }

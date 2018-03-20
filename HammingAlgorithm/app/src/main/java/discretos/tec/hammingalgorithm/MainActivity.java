@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                         DataManager.getInstace().parity = '1';
                     }
 
-                    String binData = hexToBin(hexDigit0.getText().toString());
+                    String binData = DataManager.getInstace().hexToBin(hexDigit0.getText().toString());
                     Log.d("BinData", "data: " + binData);
                     String hammingData = "";
                     List<String> data = new Vector<>();
@@ -115,14 +115,7 @@ public class MainActivity extends AppCompatActivity {
         tv.setText(stringFromJNI());*/
     }
 
-    private String hexToBin(String input){
-        String s = new BigInteger(input, 16).toString(2);
-        while(s.length() < 12){
 
-            s = "0" + s;
-        }
-        return s;
-    }
 
     /**
      * A native method that is implemented by the 'native-lib' native library,

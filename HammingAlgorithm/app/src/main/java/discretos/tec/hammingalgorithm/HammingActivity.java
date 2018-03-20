@@ -6,8 +6,10 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -38,6 +40,33 @@ public class HammingActivity extends AppCompatActivity {
                 final Dialog dialog = new Dialog(activity);
                 dialog.setContentView(R.layout.new_input_fragment);
                 dialog.setCancelable(true);
+
+                final EditText hexText = dialog.findViewById(R.id.HexDigit);
+                Button btnTest = dialog.findViewById(R.id.testBtn);
+                btnTest.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        Log.d("dick", "onClick: PENE");
+
+                        String binData = DataManager.getInstace().hexToBin(hexText.getText().toString());
+                        List<String> data = new Vector<>();
+                        data.add("Input");
+                        String originalData = DataManager.getInstace().encodedData;
+                        int i = 1;
+                        for (char c : originalData.toCharArray()) {
+                            while (i > 0 && ((i & (i - 1)) == 0)) {
+                                binData = binData.substring(0,i) + c + binData.substring(i++);
+                            }
+                        }
+                        for(char c : binData.toCharArray()){
+                            data.add(""+c);
+                        }
+                        DataManager.getInstace().compTableMatrix.add(data);
+                        Log.d("dick", "onClick: "+binData);
+                        dialog.cancel();
+                    }
+                });
 
                 dialog.show();
             }
