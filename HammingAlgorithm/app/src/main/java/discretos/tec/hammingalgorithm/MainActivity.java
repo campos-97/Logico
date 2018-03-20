@@ -102,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 Intent activityChangeIntent = new Intent(MainActivity.this, HammingActivity.class);
+                activityChangeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 MainActivity.this.startActivity(activityChangeIntent);
             }
         });

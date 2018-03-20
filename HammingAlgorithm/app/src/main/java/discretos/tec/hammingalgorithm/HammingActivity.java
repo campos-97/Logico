@@ -31,6 +31,28 @@ public class HammingActivity extends AppCompatActivity {
         TextView encodedData = (TextView)findViewById(R.id.EncodedData);
         encodedData.setText(DataManager.getInstace().encodedData);
 
+        final Button buttonTest = findViewById(R.id.testInput);
+        buttonTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Dialog dialog = new Dialog(activity);
+                dialog.setContentView(R.layout.new_input_fragment);
+                dialog.setCancelable(true);
+
+                dialog.show();
+            }
+        });
+
+        final Button reset = findViewById(R.id.resetButton);
+        reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent activityChangeIntent = new Intent(HammingActivity.this, MainActivity.class);
+                activityChangeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                HammingActivity.this.startActivity(activityChangeIntent);
+            }
+        });
+
         final Button button1 = (Button) findViewById(R.id.calcutationTableBtn);
         final Button button2 = (Button) findViewById(R.id.comparisonTableBtn);
 
