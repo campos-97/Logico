@@ -65,46 +65,47 @@ public class MainActivity extends AppCompatActivity {
         final Button button = (Button) findViewById(R.id.EncodeButton);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                if (hexDigit0.getText().toString().length() == 3) {
+                    if (dynamicSpinner.getSelectedItem().toString().contains("Even")) {
+                        DataManager.getInstace().parity = '0';
+                    } else if (dynamicSpinner.getSelectedItem().toString().contains("Odd")) {
+                        DataManager.getInstace().parity = '1';
+                    }
 
-                if(dynamicSpinner.getSelectedItem().toString().contains("Even")){
-                    DataManager.getInstace().parity = '0';
-                }else if(dynamicSpinner.getSelectedItem().toString().contains("Odd")){
-                    DataManager.getInstace().parity = '1';
-                }
-
-                String binData = hexToBin(hexDigit0.getText().toString());
-                Log.d("BinData", "data: "+binData);
-                String hammingData = "";
-                List<String> data = new Vector<>();
-                data.add("RawInput");
-                int i = 1;
-                for(char c : binData.toCharArray()){
-                    while(i > 0 && ((i & (i - 1)) == 0)){
-                        data.add(" ");
-                        hammingData += " ";
+                    String binData = hexToBin(hexDigit0.getText().toString());
+                    Log.d("BinData", "data: " + binData);
+                    String hammingData = "";
+                    List<String> data = new Vector<>();
+                    data.add("RawInput");
+                    int i = 1;
+                    for (char c : binData.toCharArray()) {
+                        while (i > 0 && ((i & (i - 1)) == 0)) {
+                            data.add(" ");
+                            hammingData += " ";
+                            i++;
+                        }
+                        data.add("" + c);
+                        hammingData += "" + c;
                         i++;
                     }
-                    data.add("" + c);
-                    hammingData += ""+c;
-                    i++;
-                }
-                DataManager.getInstace().calcTableMatrix.add(data);
+                    DataManager.getInstace().calcTableMatrix.add(data);
 
-                Log.d("anus", "hamingData: "+hammingData);
-                for(String string : encode(hammingData, DataManager.getInstace().parity)){
-                    Log.d("anus", "Cavity: "+string);
-                    List<String> encodedData = new Vector<>();
-                    encodedData.add(string.substring(0,2));
-                    for(char c : string.substring(2).toCharArray()){
-                        encodedData.add(""+c);
+                    Log.d("anus", "hamingData: " + hammingData);
+                    for (String string : encode(hammingData, DataManager.getInstace().parity)) {
+                        Log.d("anus", "Cavity: " + string);
+                        List<String> encodedData = new Vector<>();
+                        encodedData.add(string.substring(0, 2));
+                        for (char c : string.substring(2).toCharArray()) {
+                            encodedData.add("" + c);
+                        }
+                        DataManager.getInstace().calcTableMatrix.add(encodedData);
+                        DataManager.getInstace().encodedData = string.substring(2);
                     }
-                    DataManager.getInstace().calcTableMatrix.add(encodedData);
-                    DataManager.getInstace().encodedData = string.substring(2);
-                }
 
-                Intent activityChangeIntent = new Intent(MainActivity.this, HammingActivity.class);
-                activityChangeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                MainActivity.this.startActivity(activityChangeIntent);
+                    Intent activityChangeIntent = new Intent(MainActivity.this, HammingActivity.class);
+                    activityChangeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    MainActivity.this.startActivity(activityChangeIntent);
+                }
             }
         });
 
