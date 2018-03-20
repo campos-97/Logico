@@ -62,7 +62,8 @@ Java_discretos_tec_hammingalgorithm_MainActivity_encode(JNIEnv *env,
     std::string encodedData = data;
     std::vector<std::string>* vecResult = new std::vector<std::string>();
     int b = 1;
-    for(int i=0 ; i < data.length() ; i++){
+    int i=0;
+    for( ; i < data.length() ; i++){
         if((i+1) > 0 && (((i+1) & ((i+1) - 1)) == 0)){
             std::string result = "P"+to_string(b);
             int count = 0;
@@ -90,24 +91,35 @@ Java_discretos_tec_hammingalgorithm_MainActivity_encode(JNIEnv *env,
                     encodedData = encodedData.substr(0,i) + std::string("1") +encodedData.substr(i+1);
                 }
             }
-
-            int cc = 0;
-            std::string res = "";
-            for (char ch : result.substr(2)) {
-                if (!((cc / b) % (2))) {
-                    res += ch;
-                }
-                else {
-                    res += " ";
-                }
-                cc++;
-            }
-
             b++;
-            res = result.substr(0,2) + res;
-            vecResult->push_back(res);
         }
     }
+
+
+    int j = 1;
+    for(; j < b; j++){
+        int cc = 0;
+        int a = pow(2, j-1);
+        if(j > 1){
+            cc = a+1;
+        }
+
+
+        std::string res = "";
+        for (char ch : encodedData) {
+            if (!((cc / a) % (2))) {
+                res += ch;
+            }
+            else {
+                res += " ";
+            }
+            cc++;
+        }
+        res = "P" + to_string(j) + res;
+        vecResult->push_back(res);
+
+    }
+
     encodedData = "ED" + encodedData;
     vecResult->push_back(encodedData);
 
