@@ -106,7 +106,7 @@ Java_discretos_tec_hammingalgorithm_MainActivity_encode(JNIEnv *env,
         }
     }
 
-    vecResult->push_back(encodedData);
+    //vecResult->push_back(encodedData);
 
     ret = (jobjectArray)env->NewObjectArray(5,env->FindClass("java/lang/String"),env->NewStringUTF(""));
 
