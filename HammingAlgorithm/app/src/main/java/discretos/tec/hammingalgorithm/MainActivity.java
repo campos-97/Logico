@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.List;
 import java.util.Vector;
@@ -97,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
                         encodedData.add(""+c);
                     }
                     DataManager.getInstace().calcTableMatrix.add(encodedData);
+                    DataManager.getInstace().encodedData = string.substring(2);
                 }
 
                 Intent activityChangeIntent = new Intent(MainActivity.this, HammingActivity.class);

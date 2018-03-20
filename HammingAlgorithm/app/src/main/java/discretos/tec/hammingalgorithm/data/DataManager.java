@@ -19,6 +19,8 @@ public class DataManager {
 
     public char parity;
 
+    public String encodedData;
+
     DataManager(){
         this.calcTableMatrix.add(new Vector<String>());
         this.calcTableMatrix.get(0).add("");

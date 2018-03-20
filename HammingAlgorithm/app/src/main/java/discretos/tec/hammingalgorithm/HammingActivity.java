@@ -28,6 +28,9 @@ public class HammingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_hamming);
         activity = this;
 
+        TextView encodedData = (TextView)findViewById(R.id.EncodedData);
+        encodedData.setText(DataManager.getInstace().encodedData);
+
         final Button button1 = (Button) findViewById(R.id.calcutationTableBtn);
         final Button button2 = (Button) findViewById(R.id.comparisonTableBtn);
 
