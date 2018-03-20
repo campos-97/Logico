@@ -144,7 +144,7 @@ Java_discretos_tec_hammingalgorithm_MainActivity_compare(JNIEnv *env,
                                                         jchar parity){
 
     jobjectArray ret;
-    std::string data = ConvertJString( env, inputData );
+    std::string data = ConvertJString( env, inputDataRaw );
     std::string encodedData = data;
     std::vector<std::string>* vecResult = new std::vector<std::string>();
     int b = 1;
@@ -209,6 +209,13 @@ Java_discretos_tec_hammingalgorithm_MainActivity_compare(JNIEnv *env,
     encodedData = "ED" + encodedData;
     vecResult->push_back(encodedData);
 
+    std::string inputData2= ConvertJString( env, inputData );
+    for(int h = 0; h < vecResult->size(); h++){
+        int c = pow(2, h-1);
+        char ccc = inputData2.at(c-1);
+        vecResult->at(h).replace(c-1, 1, 1, ccc);
+    }
+
     ret = (jobjectArray)env->NewObjectArray(6,env->FindClass("java/lang/String"),env->NewStringUTF(""));
 
     int ind = 0;
@@ -217,4 +224,5 @@ Java_discretos_tec_hammingalgorithm_MainActivity_compare(JNIEnv *env,
     }
 
     return(ret);
+
 }
