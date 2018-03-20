@@ -22,6 +22,10 @@ import discretos.tec.hammingalgorithm.data.DataManager;
 
 public class HammingActivity extends AppCompatActivity {
 
+    static {
+        System.loadLibrary("native-lib");
+    }
+
     private AppCompatActivity activity;
 
     @Override
@@ -50,20 +54,12 @@ public class HammingActivity extends AppCompatActivity {
                         Log.d("dick", "onClick: PENE");
 
                         String binData = DataManager.getInstace().hexToBin(hexText.getText().toString());
-                        List<String> data = new Vector<>();
-                        data.add("Input");
-                        String originalData = DataManager.getInstace().encodedData;
-                        int i = 1;
-                        for (char c : originalData.toCharArray()) {
-                            while (i > 0 && ((i & (i - 1)) == 0)) {
-                                binData = binData.substring(0,i) + c + binData.substring(i++);
-                            }
+
+                        for(String string : compare(DataManager.getInstace().encodedData,
+                                binData, DataManager.getInstace().parity)){
+                            Log.d("tabla2", "str: "+string);
                         }
-                        for(char c : binData.toCharArray()){
-                            data.add(""+c);
-                        }
-                        DataManager.getInstace().compTableMatrix.add(data);
-                        Log.d("dick", "onClick: "+binData);
+
                         dialog.cancel();
                     }
                 });
@@ -137,4 +133,6 @@ public class HammingActivity extends AppCompatActivity {
         button2.setOnClickListener(onClickListener);
 
     }
+
+    public native String[] compare(String str, String string,  char parity);
 }

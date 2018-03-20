@@ -137,7 +137,7 @@ Java_discretos_tec_hammingalgorithm_MainActivity_encode(JNIEnv *env,
 extern "C"
 JNIEXPORT jobjectArray
 JNICALL
-Java_discretos_tec_hammingalgorithm_MainActivity_compare(JNIEnv *env,
+Java_discretos_tec_hammingalgorithm_HammingActivity_compare(JNIEnv *env,
                                                         jobject jobj,
                                                         jstring inputData,
                                                          jstring inputDataRaw,
