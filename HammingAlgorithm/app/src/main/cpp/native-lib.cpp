@@ -77,15 +77,15 @@ Java_discretos_tec_hammingalgorithm_MainActivity_encode(JNIEnv *env,
                 result += data.substr(0,i);
                 result += parity;
                 result += data.substr(i+1);
-                //encodedData = encodedData.substr(0,i) + to_string(parity) + encodedData.substr(i);
+                encodedData = encodedData.substr(0,i) + (""+parity) + encodedData.substr(i);
             }else{
                 if(parity == '1'){
                     result += data.substr(0,i) + std::string("0") +data.substr(i+1);
-                   // encodedData  = encodedData.substr(0,i) + std::string("0") +encodedData.substr(i);
+                    encodedData  = encodedData.substr(0,i) + std::string("0") +encodedData.substr(i);
                 }
                 if(parity == '0'){
                     result += data.substr(0,i) + std::string("1") +data.substr(i+1);
-                   // encodedData = encodedData.substr(0,i) + std::string("1") +encodedData.substr(i);
+                    encodedData = encodedData.substr(0,i) + std::string("1") +encodedData.substr(i);
                 }
             }
 
@@ -105,10 +105,10 @@ Java_discretos_tec_hammingalgorithm_MainActivity_encode(JNIEnv *env,
             vecResult->push_back(res);
         }
     }
+    encodedData = "ED" + encodedData;
+    vecResult->push_back(encodedData);
 
-    //vecResult->push_back(encodedData);
-
-    ret = (jobjectArray)env->NewObjectArray(5,env->FindClass("java/lang/String"),env->NewStringUTF(""));
+    ret = (jobjectArray)env->NewObjectArray(6,env->FindClass("java/lang/String"),env->NewStringUTF(""));
 
     int ind = 0;
     for(std::string string : *vecResult){
