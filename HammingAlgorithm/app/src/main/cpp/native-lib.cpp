@@ -210,10 +210,11 @@ Java_discretos_tec_hammingalgorithm_HammingActivity_compare(JNIEnv *env,
     vecResult->push_back(encodedData);
 
     std::string inputData2= ConvertJString( env, inputData );
-    for(int h = 0; h < vecResult->size(); h++){
+
+    for(int h = 1; h < vecResult->size(); h++){
         int c = pow(2, h-1);
-        char ccc = inputData2.at(c-1);
-        vecResult->at(h).replace(c-1, 1, 1, ccc);
+        char ccc = inputData2.at(c+1);
+        vecResult->at(h).replace(c+1, 1, 1, ccc);
     }
 
     ret = (jobjectArray)env->NewObjectArray(6,env->FindClass("java/lang/String"),env->NewStringUTF(""));
