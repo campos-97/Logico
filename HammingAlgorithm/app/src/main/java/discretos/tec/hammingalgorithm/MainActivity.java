@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String hexToBin(String input){
         String s = new BigInteger(input, 16).toString(2);
-        while(s.length() < 13){
+        while(s.length() < 12){
 
             s = "0" + s;
         }

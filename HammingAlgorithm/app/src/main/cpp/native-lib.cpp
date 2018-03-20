@@ -93,7 +93,7 @@ Java_discretos_tec_hammingalgorithm_MainActivity_encode(JNIEnv *env,
 
             int cc = 0;
             std::string res = "";
-            for (char ch : result) {
+            for (char ch : result.substr(2)) {
                 if (!((cc / b) % (2))) {
                     res += ch;
                 }
@@ -104,6 +104,7 @@ Java_discretos_tec_hammingalgorithm_MainActivity_encode(JNIEnv *env,
             }
 
             b++;
+            res = result.substr(0,2) + res;
             vecResult->push_back(res);
         }
     }
