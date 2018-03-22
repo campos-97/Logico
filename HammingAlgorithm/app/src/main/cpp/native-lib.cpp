@@ -67,12 +67,14 @@ Java_discretos_tec_hammingalgorithm_MainActivity_encode(JNIEnv *env,
         if((i+1) > 0 && (((i+1) & ((i+1) - 1)) == 0)){
             std::string result = "P"+to_string(b);
             int count = 0;
-            for(int j = 0 ; j < data.substr(i).length() ; j+=b+1){
+            for(int j = 0 ; j < data.substr(i).length() ; j+=(pow(2,b-1))){
 
-                if (data.substr(i).c_str()[j] == '1') {
-                    count++;
+                for(int n=(pow(2,b-1)) ; n > 0 ; n--){
+                    char cccc= data.substr(i).c_str()[j++];
+                    if (cccc == '1') {
+                        count++;
+                    }
                 }
-
             }
             if(count % 2 == 0){
                 result += data.substr(0,i);
@@ -129,7 +131,7 @@ Java_discretos_tec_hammingalgorithm_MainActivity_encode(JNIEnv *env,
     for(std::string string : *vecResult){
         env->SetObjectArrayElement(ret,ind++,env->NewStringUTF(string.c_str()));
     }
-
+    delete(vecResult);
     return(ret);
 }
 
@@ -143,6 +145,8 @@ Java_discretos_tec_hammingalgorithm_HammingActivity_compare(JNIEnv *env,
                                                          jstring inputDataRaw,
                                                         jchar parity){
 
+    std::string inputData2= ConvertJString( env, inputData );
+
     jobjectArray ret;
     std::string data = ConvertJString( env, inputDataRaw );
     std::string encodedData = data;
@@ -153,12 +157,14 @@ Java_discretos_tec_hammingalgorithm_HammingActivity_compare(JNIEnv *env,
         if((i+1) > 0 && (((i+1) & ((i+1) - 1)) == 0)){
             std::string result = "P"+to_string(b);
             int count = 0;
-            for(int j = 0 ; j < data.substr(i).length() ; j+=b+1){
+            for(int j = 0 ; j < data.substr(i).length() ; j+=(pow(2,b-1))){
 
-                if (data.substr(i).c_str()[j] == '1') {
-                    count++;
+                for(int n=(pow(2,b-1)) ; n > 0 ; n--){
+                    char cccc= data.substr(i).c_str()[j++];
+                    if (cccc == '1') {
+                        count++;
+                    }
                 }
-
             }
             if(count % 2 == 0){
                 result += data.substr(0,i);
@@ -192,7 +198,7 @@ Java_discretos_tec_hammingalgorithm_HammingActivity_compare(JNIEnv *env,
 
 
         std::string res = "";
-        for (char ch : encodedData) {
+        for (char ch : inputData2) {
             if (!((cc / a) % (2))) {
                 res += ch;
             }
@@ -206,24 +212,40 @@ Java_discretos_tec_hammingalgorithm_HammingActivity_compare(JNIEnv *env,
 
     }
 
-    encodedData = "ED" + encodedData;
-    vecResult->push_back(encodedData);
+    //encodedData = "ED" + encodedData;
+    //vecResult->push_back(encodedData);
 
-    std::string inputData2= ConvertJString( env, inputData );
+    int errBit = -1;
+    for(int h = 1; h <= vecResult->size(); h++){
+        int c = pow(2, h-1);
+        if(vecResult->at(h-1).substr(2).at(c-1) != encodedData.at(c-1)){
+            vecResult->at(h-1)+= std::string("E") + encodedData.at(c-1);
+            errBit += pow(2,h-1);
+        }else{
+            vecResult->at(h-1)+= std::string("C") + encodedData.at(c-1);
+        }
+    }
+    if(errBit > 0){
+        vecResult->push_back(std::string("CBadBit:-")+to_string(errBit + 1 ));
+        vecResult->push_back(std::string("DBadBit:-")+to_string((errBit+1)-((int)log2(errBit+1)+1)));
+    }else{
+        vecResult->push_back("NO ERROR");
+    }
 
+    /*
     for(int h = 1; h < vecResult->size(); h++){
         int c = pow(2, h-1);
         char ccc = inputData2.at(c+1);
         vecResult->at(h).replace(c+1, 1, 1, ccc);
     }
-
-    ret = (jobjectArray)env->NewObjectArray(6,env->FindClass("java/lang/String"),env->NewStringUTF(""));
+*/
+    ret = (jobjectArray)env->NewObjectArray(7,env->FindClass("java/lang/String"),env->NewStringUTF(""));
 
     int ind = 0;
     for(std::string string : *vecResult){
         env->SetObjectArrayElement(ret,ind++,env->NewStringUTF(string.c_str()));
     }
-
+    delete(vecResult);
     return(ret);
 
 }

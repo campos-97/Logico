@@ -51,14 +51,55 @@ public class HammingActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
 
-                        Log.d("dick", "onClick: PENE");
+
 
                         String binData = DataManager.getInstace().hexToBin(hexText.getText().toString());
 
-                        for(String string : compare(DataManager.getInstace().encodedData,
-                                binData, DataManager.getInstace().parity)){
-                            Log.d("tabla2", "str: "+string);
+                        List<String> data = new Vector<>();
+                        data.add("RawInput");
+                        String hammingData ="";
+                        String dataRaw ="";
+                        int i = 1;
+                        for (char c : binData.toCharArray()) {
+                            while (i > 0 && ((i & (i - 1)) == 0)) {
+                                data.add(""+DataManager.getInstace().encodedData.charAt(i-1));
+                                hammingData += DataManager.getInstace().encodedData.charAt(i-1);
+                                dataRaw += " ";
+                                i++;
+                            }
+                            data.add("" + c);
+                            hammingData += c;
+                            dataRaw += c;
+                            i++;
                         }
+                        data.add(""+DataManager.getInstace().parity);
+                        DataManager.getInstace().compTableMatrix.add(data);
+
+                        Log.d("tabla2", "binData: " + binData);
+                        Log.d("tabla2", "rawData:     " + dataRaw);
+                        Log.d("tabla2", "hammingData: "+hammingData);
+                        Log.d("tabla2", "codedData:   "+DataManager.getInstace().encodedData);
+
+                        int gg = 0;
+                        String[] vecStr =  compare(hammingData, dataRaw,
+                                DataManager.getInstace().parity);
+                        for (String string : vecStr){
+                            Log.d("tabla2", "Cavity: " + string);
+                            List<String> encodedData = new Vector<>();
+
+                            if(gg < vecStr.length-2) {
+                                encodedData.add(string.substring(0, 2));
+                                for (char c : string.substring(2).toCharArray()) {
+                                    encodedData.add("" + c);
+                                }
+                            }else{
+                                encodedData.add(string.split("-")[0]);
+                                encodedData.add(string.split("-")[1]);
+                            }
+                            DataManager.getInstace().compTableMatrix.add(encodedData);
+                            gg++;
+                        }
+
 
                         dialog.cancel();
                     }
